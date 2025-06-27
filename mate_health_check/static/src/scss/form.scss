@@ -1,0 +1,41 @@
+.form_patient {
+    gap: 40px;
+
+    .oe_avatar {
+        float: none !important;
+        width: 195px !important;
+        height: 195px !important;
+
+        img {
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 100% !important;
+        }
+    }
+
+    .label_header {
+        color: #333;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 800;
+        padding: 15px 0px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #E6E6E6;
+    }
+
+    .o_field_widget.o_field_many2many_tags {
+        height: auto !important;
+        max-height: max-content !important;
+
+        .o_field_tags {
+            height: auto !important;
+            max-height: max-content !important;
+            overflow: unset !important;
+        }
+
+        .o_field_many2many_selection {
+            margin-bottom: 2px !important;
+        }
+    }
+
+}

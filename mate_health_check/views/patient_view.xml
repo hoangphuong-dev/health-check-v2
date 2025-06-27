@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mate_health_check_patient_search" model="ir.ui.view">
+        <field name="name">mate_health_check.patient.search</field>
+        <field name="model">his.patient</field>
+        <field name="arch" type="xml">
+            <search string="Patient">
+                <field name="name"
+                    filter_domain="['|', '|', ('name', 'ilike', self), ('patient_id_number', 'ilike', self), ('phone', 'ilike', self)]" />
+            </search>
+        </field>
+    </record>
+
+    <record id="mate_health_check_patient_list_view" model="ir.ui.view">
+        <field name="name">his.patient.list</field>
+        <field name="model">his.patient</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="priority_level" />
+                <field name="partner_id" />
+                <field name="name" />
+                <field name="patient_id_number" />
+                <field name="package_name" />
+                <field name="phone" column_invisible="1" />
+                <field name="team_partner_id" />
+            </list>
+        </field>
+    </record>
+
+    <record id="mate_health_check_patient_form_view" model="ir.ui.view">
+        <field name="name">his.patient.form</field>
+        <field name="model">his.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class='d-flex form_patient w-100'>
+                        <div class="d-flex flex-column align-items-center">
+                            <field name="image_1920" widget="image" class="oe_avatar"
+                                options="{'preview_image': 'image_128'}" />
+                            <div> PID: <field name="patient_id_number" placeholder="Enter PID: 8xxxxxxxx" />
+                            </div>
+                        </div>
+                        <div
+                            class="w-100">
+                            <group>
+                                <group>
+                                    <div class="label_header">
+                                        Identification information
+                                    </div>
+                                    <field name="name" placeholder="Enter Name" />
+                                    <field name="gender" placeholder="Select Gender" />
+                                    <field name="date_of_birth" placeholder="Select Birth Date" />
+                                    <field name="age" placeholder="Enter Age" />
+                                    <field name="phone" placeholder="Enter Phone" />
+                                    <field name="email" placeholder="example@domain.com" />
+                                    <field name="address" placeholder="Enter Address" />
+                                </group>
+                                <group>
+                                    <div class="label_header">
+                                        Registration information
+                                    </div>
+                                    <field name="partner_id" invisible="1" />
+                                    <field name="team_partner_id" />
+                                    <field name="insurance_code" placeholder="Enter Insurance Code" />
+                                    <field name="priority_level" placeholder="Select Priority Level" />
+                                    <field name="package_ids" widget="many2many_tags"
+                                        placeholder="Select Packages " />
+                                </group>
+                            </group>
+                        </div>
+                    </div>
+                    <notebook>
+                        <page string="Package contents">
+                            <field name="package_line_ids" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mate_health_check_patient_action" model="ir.actions.act_window">
+        <field name="name">Patient</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">his.patient</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="mate_health_check_patient_search" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Click to define a new Patient.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_patient_list_server" model="ir.actions.server">
+        <field name="name">Patient List</field>
+        <field name="model_id" ref="model_his_patient" />
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_smart_queue_view()</field>
+    </record>
+    <record id="action_queue_list_server" model="ir.actions.server">
+        <field name="name">Queue List</field>
+        <field name="model_id" ref="model_his_patient" />
+        <field name="state">code</field>
+        <field name="code">action = model.action_open_queue_list_view()</field>
+    </record>
+
+</odoo>
